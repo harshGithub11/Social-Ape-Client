@@ -1,12 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import AppIcon from '../images/ape.jpg';
 import Link from 'react-router-dom/Link'
 //using history object
 import { useHistory } from 'react-router';
 
-//Importing axios package to send the request to server
-import axios from 'axios';
 //Material UI Components
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -15,58 +13,48 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+//Redux Stuff
+import { useDispatch } from 'react-redux';
+    //importing from userAction
+import { loginUserAction } from '../redux/actions/userAction';
+    //importing useSelector
+import { useSelector } from 'react-redux';
+
 const styles = (theme) => ({
     ...theme.spreadThis  
 })
+
 function Login(props) {
+    const user = useSelector(state => state.user);
+    const UI = useSelector(state => state.UI);
+    //console.log(UI);
+    const { loading } = UI;
     const { classes } = props;
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = useState({
         email: "",
         password: "",
-        loading: false,
         errors: {}
     });
     const history = useHistory();
+    
+    const dispatch = useDispatch();
+
+    //const loginUser = useActions((userData, history) => loginUserAction(userData, history)); ------useActions has been removed
+    const loginUser = (userData, history) => dispatch(loginUserAction(userData, history));
+    
+    useEffect(() => {
+        if(UI.errors)
+            setFormData(prevValue => ({...prevValue, errors: UI.errors}))
+    }, [UI.errors])
+
     function handleSubmit(event) {
         event.preventDefault();
-        setFormData(prevValue => {
-            return {
-                email: prevValue.email,
-                password: prevValue.password,
-                loading: true,
-                errors: ""
-            }
-        });
         //console.log(formData);
         const userData = {
             email: formData.email,
             password: formData.password
         }
-        
-        axios.post("/login", userData)
-            .then(result => {
-                //console.log(result.data);
-                localStorage.setItem('FBIdToken', `Bearer ${result.data.token}`);
-                setFormData(prevValue => {
-                    return {
-                        email: prevValue.email,
-                        password: prevValue.password,
-                        loading: false,
-                        errors: ""
-                    }
-                });    
-                history.push("/");
-            })
-            .catch(error => {
-                setFormData(prevValue =>{
-                    return {
-                        email: prevValue.email,
-                        password: prevValue.password,
-                        loading: false,
-                        errors: error.response.data
-                    }
-                });
-            })
+        loginUser(userData, history);
     }
     function handleChange(event) {
         const{ name, value } = event.target;
@@ -75,7 +63,6 @@ function Login(props) {
                 return {
                     email: value,
                     password: prevValue.password,
-                    loading: false,
                     errors: ""
                 }
             });
@@ -85,13 +72,13 @@ function Login(props) {
                 return {
                     email: prevValue.email,
                     password: value,
-                    loading: false,
                     errors: ""
                 }
             });
         }
     };
-    const {errors, loading} = formData;
+    
+    const { errors } = formData;
 
     return ( 
         <Grid container className={classes.form}>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 //Components
 import Navbar from './components/Navbar';
+
 //Pages to be rendered at specific route 
 import Home from './pages/home';
 import Login from './pages/login';
@@ -17,7 +18,12 @@ import themeObject from './util/theme';
 //importing JWT-Decode package for decoding token
 import jwtDecode from 'jwt-decode';
 import AuthRoute from './util/AuthRoute';
-let authenticated;
+
+//Redux 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
+let authenticated = false;
 const token = localStorage.FBIdToken;
 if(token){
   const decodedToken = jwtDecode(token);
@@ -37,7 +43,7 @@ const theme = createMuiTheme(themeObject);
 function App() {
   return (
     <MuiThemeProvider theme = {theme}>
-      <div className="App">
+      <Provider store = {store} >
         <Router>
           <Navbar />
             <div className="container">
@@ -48,7 +54,7 @@ function App() {
               </Switch>
             </div>
         </Router>
-      </div>
+      </Provider>
     </MuiThemeProvider>
   );
 }
