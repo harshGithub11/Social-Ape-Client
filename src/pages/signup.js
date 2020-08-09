@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppIcon from '../images/ape.jpg';
 import Link from 'react-router-dom/Link'
+
 //using history object
 import { useHistory } from 'react-router';
 
-//Importing axios package to send the request to server
-import axios from 'axios';
 //Material UI Components
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -15,121 +14,91 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+//importing Redux Stuffs
+import { useDispatch, useSelector } from 'react-redux';
+import { signUpUserAction } from '../redux/actions/userAction';
+
 const styles = (theme) => ({
     ...theme.spreadThis  
 })
 
 function SignUp(props) {
+    const user = useSelector(state => state.user);
+    const UI = useSelector(state => state.UI);
+    const { loading } = UI;
+
     const { classes } = props;
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = useState({
         email: "",
         password: "",
         confirmPassword: "",
         handle: "",
-        loading: false,
         errors: {}
     });
+
     const history = useHistory();
+    const dispatch = useDispatch();
+    const signUpUser = (newUserData, history) => dispatch(signUpUserAction(newUserData, history));
+    
+    useEffect(() => {
+        if(UI.errors)
+            setFormData(prevValue => ({...prevValue, errors: UI.errors}))
+    }, [UI.errors])
+
     function handleSubmit(event) {
         event.preventDefault();
-        setFormData(prevValue => {
-            return {
-                email: prevValue.email,
-                password: prevValue.password,
-                loading: true,
-                errors: ""
-            }
-        });
         //console.log(formData);
+        setFormData(prevValue => {
+            return{
+                ...prevValue,
+                loading: true
+            }
+        })
         const newUserData = {
             email: formData.email,
             password: formData.password,
             confirmPassword: formData.confirmPassword,
             handle: formData.handle
         }
-        
-        axios.post("/signup", newUserData)
-            .then(result => {
-                //console.log(result.data);
-                localStorage.setItem('FBIdToken', `Bearer ${result.data.token}`);
-
-                setFormData(prevValue => {
-                    return {
-                        email: prevValue.email,
-                        password: prevValue.password,
-                        confirmPassword: prevValue.confirmPassword,
-                        handle: prevValue.handle,
-                        loading: false,
-                        errors: ""
-                    }
-                });    
-                history.push("/");
-            })
-            .catch(error => {
-                setFormData(prevValue =>{
-                    return {
-                        email: prevValue.email,
-                        password: prevValue.password,
-                        confirmPassword: prevValue.confirmPassword,
-                        handle: prevValue.handle,
-                        loading: false,
-                        errors: error.response.data
-                    }
-                });
-            })
+        signUpUser(newUserData, history);
     }
     function handleChange(event) {
         const{ name, value } = event.target;
         if(name === "email"){
             setFormData(prevValue => {
                 return {
-                    email: value,
-                    password: prevValue.password,
-                    confirmPassword: prevValue.confirmPassword,
-                    handle: prevValue.handle,
-                    loading: false,
-                    errors: ""
+                    ...prevValue,
+                    email: value
                 }
             });
         }
         else if(name === "password"){
             setFormData(prevValue => {
                 return {
-                    email: prevValue.email,
+                    ...prevValue,
                     password: value,
-                    confirmPassword: prevValue.confirmPassword,
-                    handle: prevValue.handle,
-                    loading: false,
-                    errors: ""
+                    
                 }
             });
         }
         else if(name === "confirmPassword"){
             setFormData(prevValue => {
                 return {
-                    email: prevValue.email,
-                    password: prevValue.password,
+                    ...prevValue,
                     confirmPassword: value,
-                    handle: prevValue.handle,
-                    loading: false,
-                    errors: ""
                 }
             });
         }
         else if(name === "handle"){
             setFormData(prevValue => {
                 return {
-                    email: prevValue.email,
-                    password: prevValue.password,
-                    confirmPassword: prevValue.confirmPassword,
-                    handle: value,
-                    loading: false,
-                    errors: ""
+                    ...prevValue,
+                    handle: value
                 }
             });
         }
     };
-    const {errors, loading} = formData;
+    const { errors } = formData;
 
     return ( 
         <Grid container className={classes.form}>
