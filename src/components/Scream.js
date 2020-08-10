@@ -12,12 +12,15 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
     root: {
       display: 'flex',
-      margin: 20,
-      maxWidth: 700,
+      marginLeft: 50,
+      marginTop: 20,
+      marginRight: 20,
+      marginBottom: 20,
+      maxWidth: 600,
       maxHeight: 200
     },
     media: {
-      minWidth: 200,
+      minWidth: 100,
       padding: 20
     },
     content: {
