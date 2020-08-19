@@ -1,137 +1,214 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 //react-router-dom
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 //Material UI Stuffs
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
-import MaterialUiLink from '@material-ui/core/Link';
+import MaterialUiLink from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import Paper from '@material-ui/core/Paper';
+import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
 
 //Icons from Material UI
-import LocationOn from '@material-ui/icons/LocationOn';
-import LinkIcon from '@material-ui/icons/Link';
-import CalendarToday  from '@material-ui/icons/CalendarToday';
+import LocationOn from "@material-ui/icons/LocationOn";
+import LinkIcon from "@material-ui/icons/Link";
+import CalendarToday from "@material-ui/icons/CalendarToday";
+import EditIcon from "@material-ui/icons/Edit";
+import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 
 //Redux Stuffs
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+//importing from useraction
+import { uploadImageAction, logOutUserAction } from "../redux/actions/userAction"; 
 
 //dayjs
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 const styles = (theme) => ({
-    paper: {
-        marginTop: 20,
-        marginRight: 20,
-        padding: 20, 
+  paper: {
+    marginTop: 20,
+    marginRight: 20,
+    padding: 20,
+  },
+  buttons: {
+    textAlign: "center",
+    margin: 10,
+    "& : hover": {
+      margin: "0 0 10px 0",
     },
-    buttons: {
-        textAlign: 'center',
-        margin: 10,
-        "& : hover": {
-            margin: '0 0 10px 0'
-        }
+  },
+  profile: {
+    "& .image-wrapper": {
+      textAlign: "center",
+      position: "relative",
+      "& button": {
+        position: "absolute",
+        top: "80%",
+        left: "70%",
+      },
     },
-    profile: {
-      '& .image-wrapper': {
-        textAlign: 'center',
-        position: 'relative',
-        '& button': {
-          position: 'absolute',
-          top: '80%',
-          left: '70%'
-        }
+    "& .profile-image": {
+      width: 200,
+      height: 200,
+      objectFit: "cover",
+      maxWidth: "100%",
+      borderRadius: "50%",
+    },
+    "& .profile-details": {
+      textAlign: "center",
+      "& span, svg": {
+        verticalAlign: "middle",
       },
-      '& .profile-image': {
-        width: 200,
-        height: 200,
-        objectFit: 'cover',
-        maxWidth: '100%',
-        borderRadius: '50%'
+      "& a": {
+        color: theme.palette.primary.main,
       },
-      '& .profile-details': {
-        textAlign: 'center',
-        '& span, svg': {
-          verticalAlign: 'middle'
-        },
-        '& a': {
-          color: theme.palette.primary.main
-        }
+    },
+    "& hr": {
+      border: "none",
+      margin: "0 0 10px 0",
+    },
+    "& svg.button": {
+      "&:hover": {
+        cursor: "pointer",
       },
-      '& hr': {
-        border: 'none',
-        margin: '0 0 10px 0'
-      },
-      '& svg.button': {
-        '&:hover': {
-          cursor: 'pointer'
-        }
-      }
-    }
+    },
+  },
 });
 
 const Profile = (props) => {
-    const user = useSelector(state => state.user);
-    const { credentials : { handle, createdAt, imageURL, bio, website, location }, loading, authenticated} = user;
-//   user: {
-//     credentials: { handle, createdAt, imageURL, bio, website, location },
-//     loading,
-//     authenticated
-//     }
+  const user = useSelector((state) => state.user);
+  const { credentials: {
+    handle,
+    createdAt,
+    imageURL,
+    bio,
+    website,
+    location,
+  }, loading, authenticated } = user;
+  //   user: {
+  //     credentials: { handle, createdAt, imageURL, bio, website, location },
+  //     loading,
+  //     authenticated
+  //     }
   const { classes } = props;
 
-  let profileMarkUp = !loading ? (authenticated ? (
-  <Paper className= {classes.paper} >
-    <div className = { classes.profile } >
-        <div className ="image-wrapper" >
-            <img src = { imageURL } alt = "profile" className ="profile-image" />
-        </div>
-        <hr />
-        <div className = "profile-details">
-            <MaterialUiLink component = { Link } to = {`/users/${handle}`} color = "primary" variant = "h5">
-                @{handle}
+  const dispatch = useDispatch();
+
+  const uploadImage = (formData) => dispatch(uploadImageAction(formData)); 
+
+  const handleImageChange = (event) => {
+    console.log(event.target.files);
+    const image = event.target.files[0];
+    console.log(image);
+    console.log(image.name);
+    const formData = new FormData();
+    formData.append('image', image, image.name); 
+    uploadImage(formData);
+  };
+
+  const handleEditPicture = () => {
+    const fileInput = document.getElementById("imageInput");
+    fileInput.click();
+  };
+
+  const logOut = () => dispatch(logOutUserAction());
+  const handleLogOut = () =>{
+    logOut();
+  }
+
+  let profileMarkUp = !loading ? (
+    authenticated ? (
+      <Paper className={classes.paper}>
+        <div className={classes.profile}>
+          <div className="image-wrapper">
+            <img src={imageURL} alt="profile" className="profile-image" />
+            <input
+              type="file"
+              id="imageInput"
+              hidden="hidden"
+              onChange={handleImageChange}
+            />
+            <Tooltip title="Edit Profile Picture" placement="top">
+              <IconButton onClick={handleEditPicture} className="button">
+                <EditIcon color="primary" />
+              </IconButton>
+            </Tooltip>
+          </div>
+          <hr />
+          <div className="profile-details">
+            <MaterialUiLink
+              component={Link}
+              to={`/users/${handle}`}
+              color="primary"
+              variant="h5"
+            >
+              @{handle}
             </MaterialUiLink>
-            <hr/>
+            <hr />
             {bio && <Typography variant="body2">{bio}</Typography>}
-            <hr/>
+            <hr />
             {location && (
-                <Fragment>
-                    <LocationOn color="primary" />
-                    <span>{location}</span>
-                </Fragment>              
+              <Fragment>
+                <LocationOn color="primary" />
+                <span>{location}</span>
+                <hr />
+              </Fragment>
             )}
             {website && (
-                <Fragment>
-                    <LinkIcon color="primary" />
-                    <a href = {website} target = "_blank" rel = "noopener noreferrer">
-                        {' '}{website}
-                    </a>
-                    <hr/>
-                </Fragment>
+              <Fragment>
+                <LinkIcon color="primary" />
+                <a href={website} target="_blank" rel="noopener noreferrer">
+                  {" "}
+                  {website}
+                </a>
+                <hr />
+              </Fragment>
             )}
-            <CalendarToday color="primary" />{' '}
-            <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+            <CalendarToday color="primary" />{" "}
+            <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
+          </div>
+          <Tooltip title="Logout" placement="top">
+            <IconButton onClick={handleLogOut}>
+              <KeyboardReturn color="primary" />
+            </IconButton>
+          </Tooltip>
         </div>
-    </div>
-  </Paper>) : (
-      <Paper className={classes.paper}>
-          <Typography variant="body2" align="center">
-              No profile found, please login again
-              <div >
-                  <Button className={classes.buttons} variant="contained" color="primary" component = {Link} to="/login">
-                      Login
-                  </Button>
-                  <Button className={classes.buttons} variant="contained" color="secondary" component = {Link} to="/signup">
-                      Sign Up
-                  </Button>
-              </div>
-          </Typography>
       </Paper>
-  )) : (<p>Loading....</p>)
-  
+    ) : (
+      <Paper className={classes.paper}>
+        <Typography variant="body2" align="center">
+          No profile found, please login again
+          <div>
+            <Button
+              className={classes.buttons}
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/login"
+            >
+              Login
+            </Button>
+            <Button
+              className={classes.buttons}
+              variant="contained"
+              color="secondary"
+              component={Link}
+              to="/signup"
+            >
+              Sign Up
+            </Button>
+          </div>
+        </Typography>
+      </Paper>
+    )
+  ) : (
+    <p>Loading....</p>
+  );
+
   return profileMarkUp;
 };
 

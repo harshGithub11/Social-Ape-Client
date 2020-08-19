@@ -44,7 +44,7 @@ if(token){
   else { 
     store.dispatch({ type: SET_AUTHENTICATED });
     axios.defaults.headers.common['Authorization'] = token;
-    store.dispatch(getUserDataAction);
+    store.dispatch(getUserDataAction());
   }
 }
 const theme = createMuiTheme(themeObject);
