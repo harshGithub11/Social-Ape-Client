@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
+//importing a Component
+import EditProfile from "./EditProfile";
+
 //react-router-dom
 import { Link } from "react-router-dom";
 
@@ -28,6 +31,7 @@ import { uploadImageAction, logOutUserAction } from "../redux/actions/userAction
 
 //dayjs
 import dayjs from "dayjs";
+
 const styles = (theme) => ({
   paper: {
     marginTop: 20,
@@ -176,6 +180,7 @@ const Profile = (props) => {
               <KeyboardReturn color="primary" />
             </IconButton>
           </Tooltip>
+          <EditProfile />
         </div>
       </Paper>
     ) : (

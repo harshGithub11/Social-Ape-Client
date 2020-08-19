@@ -74,6 +74,20 @@ export const uploadImageAction = (formData) => (dispatch) => {
 
 //-------------------------11 Aug---------------------------
 
+//-------------------------19 Aug---------------------------
+
+export const editUserDetailsAction = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios.post('/user', userDetails)
+        .then(() => {
+            dispatch(getUserDataAction());
+        })
+        .catch(err => console.log(err));
+}
+
+//-------------------------19 Aug---------------------------
+
+
 //-------------------------06 Aug---------------------------
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`
