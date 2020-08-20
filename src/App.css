@@ -5,14 +5,24 @@ body{
     sans-serif;
     background-color: rgb(245, 245, 245);
 }
-/*div container in App.js*/
+
+/* Start: div container in App.js*/
+
 .container{
   margin: 80px auto 0 auto;
 }
-/*Toolbar in Navbar.js*/
+
+/* End: div container in App.js*/
+/* Start: Toolbar in Navbar.js*/
+
 .nav-container{
   margin: auto;
 }
+.nav-container svg{
+  color: #fff;
+}
+/* End: Toolbar in Navbar.js*/
+
 a{
   text-decoration: none;
 }
