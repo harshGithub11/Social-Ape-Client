@@ -206,7 +206,7 @@ const Profile = (props) => {
       </Paper>
     )
   ) : (
-    <p>Loading....</p>
+    <p style = {{ marginLeft: 50 }}>Loading....</p>
   );
 
   return profileMarkUp;
