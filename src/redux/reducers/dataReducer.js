@@ -2,7 +2,7 @@ import { LIKE_SCREAM, UNLIKE_SCREAM, SET_SCREAM, SET_SCREAMS, LOADING_DATA } fro
 
 const initialState = {
     screams: [],
-    scream: [],
+    scream: {},
     loading: false
 }
 
@@ -21,11 +21,13 @@ export default (state = initialState, action) => {
             }
         case LIKE_SCREAM:
         case UNLIKE_SCREAM: 
-            let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId);
+            let index = state.screams.findIndex(
+                (scream) => scream.screamId === action.payload.screamId
+            );
             state.screams[index] = action.payload;
             return {
                 ...state
-            }
+            };
         default: 
             return state
     }
