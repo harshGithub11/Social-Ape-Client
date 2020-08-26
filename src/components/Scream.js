@@ -23,6 +23,9 @@ import { useSelector, useDispatch } from 'react-redux';
 //Scream Actions
 import { likeScreamsAction, unlikeScreamAction} from '../redux/actions/dataAction';
 
+//Component import for deleting a scream
+import DeleteScream from './DeleteScream';
+
 const useStyles = makeStyles({
     root: {
       display: 'flex',
@@ -31,11 +34,12 @@ const useStyles = makeStyles({
       marginRight: 20,
       marginBottom: 20,
       maxWidth: 600,
-      maxHeight: 200
+      maxHeight: 200,
+      position: 'relative'
     },
     media: {
-      minWidth: 100,
-      padding: 20
+      minWidth: 160,
+      padding: 10
     },
     content: {
         padding: 25,
@@ -54,10 +58,11 @@ function Scream(props){
 
     //fetching state
     const user = useSelector(state => state.user);
-    const { authenticated } = user;
+    const { credentials: { handle }, authenticated } = user;
     const likeScream = (screamId) => dispatch(likeScreamsAction(screamId));
     const unlikeScream = (screamId) => dispatch(unlikeScreamAction(screamId));
 
+    //Checking whether logged in user has liked the scream
     const hasLiked = () => {
       if(user.likes && user.likes.find(like => like.screamId === screamId)) 
         return true;
@@ -70,6 +75,8 @@ function Scream(props){
     const handleOnUnlike = () => {
       unlikeScream(screamId);
     }
+
+    //Like Button
     const likeButton = !authenticated ? (
       <MyButton tip = "Like">
         <Link to = "/login">
@@ -88,6 +95,11 @@ function Scream(props){
       )
     )
 
+    //Delete Button 
+    const deleteButton = authenticated && userHandle === handle ? (
+      <DeleteScream screamId = {screamId}/>
+    ) : null;
+
     return(
        <Card className={classes.root}>
            <CardMedia 
@@ -97,6 +109,7 @@ function Scream(props){
            />
             <CardContent className={classes.content}>
                 <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
+                {deleteButton}
                 <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
                 <Typography variant="body1">{body}</Typography>
                 {likeButton}
