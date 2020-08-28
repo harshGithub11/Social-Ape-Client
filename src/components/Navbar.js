@@ -9,12 +9,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button'
 
 //imports for material ui icons
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
 //imports for redux
 import { useSelector } from 'react-redux';
+
+//imports for custom components
+import PostScream from './PostScream';
 
 function Navbar(){
     
@@ -27,9 +29,7 @@ function Navbar(){
                 {
                     authenticated ? (
                         <Fragment>
-                            <MyButton tip = "Post a Scream">
-                                <AddIcon />
-                            </MyButton>
+                            <PostScream />
                             <MyButton tip = "Home">
                                 <Link to = "/">
                                     <HomeIcon />
