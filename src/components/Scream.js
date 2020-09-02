@@ -26,6 +26,9 @@ import { likeScreamsAction, unlikeScreamAction} from '../redux/actions/dataActio
 //Component import for deleting a scream
 import DeleteScream from './DeleteScream';
 
+//Component import for viewing a scream
+import ScreamDialog from './ScreamDialog';
+
 const useStyles = makeStyles({
     root: {
       display: 'flex',
@@ -118,6 +121,7 @@ function Scream(props){
                   <ChatIcon color = "primary" />
                 </MyButton>
                 <span> {commentCount} comments</span>
+                <ScreamDialog screamId={screamId} userHandle={userHandle} />
             </CardContent>
        </Card> 
     )

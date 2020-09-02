@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
-import withStyles from "@material-ui/core/styles/withStyles";
 
 import MyButton from '../util/MyButton';
 
 //Material UI 
+import withStyles from "@material-ui/core/styles/withStyles";
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,7 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
 //Redux Stuffs
-import { postScreamAction } from "../redux/actions/dataAction";
+import { postScreamAction, clearErrorsAction } from "../redux/actions/dataAction";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { TextField } from '@material-ui/core';
@@ -24,7 +24,8 @@ const styles = (theme) => ({
     ...theme.spreadThis,
     postButton: {
         margin: '10px 10px 10px 0',
-        position: 'relative'
+        position: 'relative',
+        float: 'right'
     },
     progress: {
         position: 'absolute'
@@ -44,17 +45,17 @@ const PostScream = (props) => {
     
     const [post, setPost] = React.useState({
         open: false,
-        body: "",
-        errors: {}
+        body: ""
     })
 
     const postScream = (newScream) => dispatch(postScreamAction(newScream));
-
+    const clearErrors = () => dispatch(clearErrorsAction());
     const handleOpen = () => {
         setPost(prevValue => ({...prevValue, open: true}));
     }
 
     const handleClose = () => {
+        clearErrors();
         setPost(prevValue => ({...prevValue, open: false}));
     }
 
@@ -89,7 +90,6 @@ const PostScream = (props) => {
                             helperText = {errors && errors.body}
                             className = {classes.textField}
                             onChange = {handleChange}
-            
                             fullWidth
                             color = "primary"
                         />

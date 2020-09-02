@@ -19,6 +19,11 @@ export default (state = initialState, action) => {
                 loading: false,
                 screams: action.payload
             }
+        case SET_SCREAM:
+            return{
+                ...state,
+                scream: action.payload
+            }
         case POST_SCREAM:
             return {
                 ...state,
