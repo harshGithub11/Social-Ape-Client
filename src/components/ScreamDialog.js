@@ -7,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid'
 import Typographpy from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 //dayjs
 import dayjs from 'dayjs';
@@ -15,19 +16,26 @@ import { Link } from 'react-router-dom';
 //Material UI Icons
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import ChatIcon from '@material-ui/icons/Chat';
 
 //Redux Stuffs
 import { useDispatch, useSelector } from 'react-redux';
 
-
+//Get Scream Action
 import { getScreamAction } from '../redux/actions/dataAction';
 
-//Custom Button Import
+//Custom Button Component Import
 import MyButton from '../util/MyButton';
-import CircularProgress from '@material-ui/core/CircularProgress';
+
+//Custom LikeButton Component Import
+import LikeButton from './LikeButton';
 
 const styles = (theme) => ({
     ...theme.spreadThis,
+    expandButton: {
+        position: 'absolute',
+        left: '90%'
+    },
     invisibleSeparator: {
         border: 'none',
         margin: 4
@@ -44,6 +52,11 @@ const styles = (theme) => ({
     closeButton: {
         position: 'absolute',
         left: '90%'
+    },
+    spinnerDiv: {
+        textAlign: 'center',
+        marginTop: 50,
+        marginBottom: 50
     }
 });
 
@@ -73,7 +86,9 @@ const ScreamDialog = (props) => {
     };    
 
     const dialogMarkUp = loading ? (
-        <CircularProgress size = { 200 } />
+        <div className= {classes.spinnerDiv} >
+            <CircularProgress size = { 200 } thickness = {2}/>
+        </div>
     ) : (
         <Grid container spacing = { 16 }>
             <Grid item sm = { 5 }>
@@ -96,6 +111,12 @@ const ScreamDialog = (props) => {
                 <Typographpy variant = "body1">
                     { scream.body }
                 </Typographpy>
+                <LikeButton screamId = { screamId } />
+                <span >{ scream.likeCount } likes</span>
+                <MyButton tip="comments">
+                    <ChatIcon color="primary" />
+                </MyButton>
+                <span> {scream.commentCount} comments</span>
             </Grid>
         </Grid>
     );
