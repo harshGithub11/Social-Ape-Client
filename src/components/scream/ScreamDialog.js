@@ -22,23 +22,20 @@ import ChatIcon from '@material-ui/icons/Chat';
 import { useDispatch, useSelector } from 'react-redux';
 
 //Get Scream Action
-import { getScreamAction } from '../redux/actions/dataAction';
+import { getScreamAction } from '../../redux/actions/dataAction';
 
 //Custom Button Component Import
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 //Custom LikeButton Component Import
 import LikeButton from './LikeButton';
+import Comments from './Comments';
 
 const styles = (theme) => ({
     ...theme.spreadThis,
     expandButton: {
         position: 'absolute',
         left: '90%'
-    },
-    invisibleSeparator: {
-        border: 'none',
-        margin: 4
     },
     profileImage: {
         maxWidth: 200,
@@ -118,6 +115,8 @@ const ScreamDialog = (props) => {
                 </MyButton>
                 <span> {scream.commentCount} comments</span>
             </Grid>
+            <hr className = {classes.visibleSeparator} />
+            <Comments comments = {scream.comments} />
         </Grid>
     );
     

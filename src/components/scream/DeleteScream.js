@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 //Material UI 
 import Dialog from '@material-ui/core/Dialog';
@@ -16,7 +16,7 @@ import DeleteOutline from '@material-ui/icons/DeleteOutline';
 
 //Redux 
 import { useDispatch } from 'react-redux';
-import { deleteScreamAction } from '../redux/actions/dataAction';
+import { deleteScreamAction } from '../../redux/actions/dataAction';
 
 const styles = (theme) => ({
     ...theme.spreadThis,

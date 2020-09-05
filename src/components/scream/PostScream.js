@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 //Material UI 
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -15,7 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
 //Redux Stuffs
-import { postScreamAction, clearErrorsAction } from "../redux/actions/dataAction";
+import { postScreamAction, clearErrorsAction } from "../../redux/actions/dataAction";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { TextField } from '@material-ui/core';

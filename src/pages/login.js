@@ -25,7 +25,6 @@ const styles = (theme) => ({
 })
 
 function Login(props) {
-    const user = useSelector(state => state.user);
     const UI = useSelector(state => state.UI);
     //console.log(UI);
     const { loading } = UI;

@@ -23,7 +23,6 @@ const styles = (theme) => ({
 })
 
 function SignUp(props) {
-    const user = useSelector(state => state.user);
     const UI = useSelector(state => state.UI);
     const { loading } = UI;
 

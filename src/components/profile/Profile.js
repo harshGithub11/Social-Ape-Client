@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 //importing a Component
-import EditProfile from "./EditProfile";
+import EditProfile from "../scream/EditProfile";
 
 //react-router-dom
 import { Link } from "react-router-dom";
@@ -25,11 +25,11 @@ import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
 import { useSelector, useDispatch } from "react-redux";
 
 //importing from useraction
-import { uploadImageAction, logOutUserAction } from "../redux/actions/userAction"; 
+import { uploadImageAction, logOutUserAction } from "../../redux/actions/userAction"; 
 
 //dayjs
 import dayjs from "dayjs";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 const styles = (theme) => ({
   paper: {

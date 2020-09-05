@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import {Link} from 'react-router-dom';
 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 //imports for material ui
 import AppBar from '@material-ui/core/AppBar';
@@ -16,7 +16,7 @@ import Notifications from '@material-ui/icons/Notifications';
 import { useSelector } from 'react-redux';
 
 //imports for custom components
-import PostScream from './PostScream';
+import PostScream from '../scream/PostScream';
 
 function Navbar(){
     

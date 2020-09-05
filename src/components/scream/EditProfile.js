@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 //Material UI Stuffs
 import Button from "@material-ui/core/Button";
@@ -16,9 +16,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import EditIcon from "@material-ui/icons/Edit";
 
 //Redux Stuffs
-import { editUserDetailsAction } from "../redux/actions/userAction";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { editUserDetailsAction } from "../../redux/actions/userAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const styles = (theme) => ({
   ...theme.spreadThis,

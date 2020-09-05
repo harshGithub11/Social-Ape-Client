@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 //Components
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 
 //Pages to be rendered at specific route 
 import Home from './pages/home';
