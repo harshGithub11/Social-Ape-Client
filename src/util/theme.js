@@ -35,6 +35,15 @@ const theme = {
         color: "red",
         fontSize: "0.8rem",
         margin: 10
+      },
+      visibleSeparator: {
+        width: '100%',
+        borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+        marginBottom: 20
+      },
+      invisibleSeparator: {
+        border: 'none',
+        margin: 4
       }
     }
 };

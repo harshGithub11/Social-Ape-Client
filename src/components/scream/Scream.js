@@ -10,7 +10,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 //Material UI Icons
 import ChatIcon from "@material-ui/icons/Chat";

@@ -13,9 +13,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   likeScreamsAction,
   unlikeScreamAction,
-} from "../redux/actions/dataAction";
+} from "../../redux/actions/dataAction";
 
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 
 const LikeButton = (props) => {
   const { authenticated, likes } = useSelector((state) => state.user);
