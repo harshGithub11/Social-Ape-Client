@@ -29,7 +29,10 @@ import MyButton from '../../util/MyButton';
 
 //Custom LikeButton Component Import
 import LikeButton from './LikeButton';
+
+//Other Custom Imports
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 const styles = (theme) => ({
     ...theme.spreadThis,
@@ -116,6 +119,7 @@ const ScreamDialog = (props) => {
                 <span> {scream.commentCount} comments</span>
             </Grid>
             <hr className = {classes.visibleSeparator} />
+            <CommentForm screamId = { screamId } />
             <Comments comments = {scream.comments} />
         </Grid>
     );

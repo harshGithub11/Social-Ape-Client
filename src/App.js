@@ -8,6 +8,7 @@ import Navbar from './components/layout/Navbar';
 import Home from './pages/home';
 import Login from './pages/login';
 import SignUp from './pages/signup';
+import User from './pages/user';
 
 import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
@@ -59,6 +60,7 @@ function App() {
                 <Route exact path ="/" component={Home} />
                 <AuthRoute exact path ="/login" component={Login} />
                 <AuthRoute exact path ="/signup" component={SignUp} />
+                <Route exact path = "/users/:handle" component={User} />
               </Switch>
             </div>
         </Router>

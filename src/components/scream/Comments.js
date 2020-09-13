@@ -53,7 +53,7 @@ const Comments = (props) => {
                                         { dayjs(createdAt).format('h:mm a, MMMM DD YYYY') }
                                     </Typography>
                                     <hr className = { classes.invisibleSeparator } />
-                                    <Typography variant = "body1" > { body.body }</Typography>
+                                    <Typography variant = "body1" > { body }</Typography>
                                 </div>
                             </Grid>
                         </Grid>
