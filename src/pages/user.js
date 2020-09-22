@@ -22,13 +22,19 @@ const User = (props) => {
 
     const dispatch = useDispatch();
 
-    const { match: { params: { handle } } } = props;
-
     const getUserData = (handle) => dispatch(getUserDataAction(handle));
 
     const [profile, setProfile] = useState(null);
 
+    const [screamIdParam, setScreamIdParam] = useState(null);    
+
     useEffect(() => {
+        
+        const { match: { params: { handle} } } = props;
+        const screamId = props.match.params.screamId;
+        
+        if(screamId)    
+            setScreamIdParam(screamId);
 
         getUserData(handle);
 
@@ -46,9 +52,16 @@ const User = (props) => {
         <p style = {{marginLeft: 50}}> Loading... </p>
     ) : (screams === null ? (
         <p style = {{marginLeft: 50}}> No screams for this user </p>
-    ) : (
+    ) : (!screamIdParam ? (
         screams.map(scream => <Scream key = {scream.screamId}x scream = {scream} />)
-    ))
+    ) : (
+        screams.map(scream => {
+            if(scream.screamId !== screamIdParam)
+                return <Scream key = {scream.screamId}x scream = {scream} />
+            else 
+                return <Scream key = {scream.screamId}x scream = {scream} openDialog = {true} />
+        })
+    )))
 
     return(
         <div>

@@ -103,7 +103,7 @@ function Scream(props) {
           <ChatIcon color="primary" />
         </MyButton>
         <span> {commentCount} comments</span>
-        <ScreamDialog screamId={screamId} userHandle={userHandle} />
+        <ScreamDialog screamId={screamId} userHandle={userHandle} openDialog = { props.openDialog } />
       </CardContent>
     </Card>
   );

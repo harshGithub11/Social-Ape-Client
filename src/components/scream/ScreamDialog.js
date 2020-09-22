@@ -1,4 +1,4 @@
-import React , { useState , Fragment } from 'react';
+import React , { useState , useEffect, Fragment } from 'react';
 
 //Material UI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -61,7 +61,12 @@ const styles = (theme) => ({
 });
 
 const ScreamDialog = (props) => {
-    
+
+    useEffect(() => {
+        if(props.openDialog)    
+            handleOpen();
+    }, [])
+
     const UI = useSelector(state => state.UI);
     const data = useSelector(state => state.data);
 
@@ -76,12 +81,22 @@ const ScreamDialog = (props) => {
 
     const getScream = (screamId) => dispatch(getScreamAction(screamId));
 
+    const [oldPath, setOldPath] = useState('');
+
     const handleOpen = () => {
+
+        setOldPath(window.location.pathname);
+
+        const { userHandle, screamId } = props;
+        const newPath = `/users/${userHandle}/scream/${screamId}`;
+        window.history.pushState(null, null, newPath);
+
         setOpen(true);
         getScream(screamId);
     };
 
     const handleClose = () => {
+        window.history.pushState(null, null, oldPath);
         setOpen(false);        
     };    
 
