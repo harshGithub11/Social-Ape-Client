@@ -1,4 +1,4 @@
-import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER } from '../types';
+import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ } from '../types';
 
 //Importing axios package to send the request to server
 import axios from 'axios';
@@ -86,6 +86,20 @@ export const editUserDetailsAction = (userDetails) => (dispatch) => {
 }
 
 //-------------------------19 Aug---------------------------
+
+//-------------------------23 Sep---------------------------
+
+export const markNotificationsReadAction = (notificationIds) => (dispatch) => {
+    axios.post('/notifications', notificationIds)
+        .then(res => {
+            dispatch({
+                type: MARK_NOTIFICATIONS_READ
+            })
+        })  
+        .catch(err => console.log(err));    
+}
+
+//-------------------------23 Sep---------------------------
 
 
 //-------------------------06 Aug---------------------------

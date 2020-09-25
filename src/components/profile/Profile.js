@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 //importing a Component
 import EditProfile from "../scream/EditProfile";
+import ProfileSkeleton from '../../util/ProfileSkeleton';
 
 //react-router-dom
 import { Link } from "react-router-dom";
@@ -32,54 +33,7 @@ import dayjs from "dayjs";
 import MyButton from "../../util/MyButton";
 
 const styles = (theme) => ({
-  paper: {
-    marginTop: 20,
-    marginRight: 20,
-    padding: 20,
-  },
-  buttons: {
-    textAlign: "center",
-    margin: 10,
-    "& : hover": {
-      margin: "0 0 10px 0",
-    },
-  },
-  profile: {
-    "& .image-wrapper": {
-      textAlign: "center",
-      position: "relative",
-      "& button": {
-        position: "absolute",
-        top: "80%",
-        left: "70%",
-      },
-    },
-    "& .profile-image": {
-      width: 200,
-      height: 200,
-      objectFit: "cover",
-      maxWidth: "100%",
-      borderRadius: "50%",
-    },
-    "& .profile-details": {
-      textAlign: "center",
-      "& span, svg": {
-        verticalAlign: "middle",
-      },
-      "& a": {
-        color: theme.palette.primary.main,
-      },
-    },
-    "& hr": {
-      border: "none",
-      margin: "0 0 10px 0",
-    },
-    "& svg.button": {
-      "&:hover": {
-        cursor: "pointer",
-      },
-    },
-  },
+  ...theme.spreadThis
 });
 
 const Profile = (props) => {
@@ -206,7 +160,7 @@ const Profile = (props) => {
       </Paper>
     )
   ) : (
-    <p style = {{ marginLeft: 50 }}>Loading....</p>
+    <p style = {{ marginLeft: 50 }}> <ProfileSkeleton /> </p>
   );
 
   return profileMarkUp;

@@ -18,42 +18,7 @@ import CalendarToday from "@material-ui/icons/CalendarToday";
 import dayjs from 'dayjs';
 
 const styles = (theme) => ({
-    paper: {
-      marginTop: 20,
-      marginRight: 20,
-      padding: 20,
-    },
-    profile: {
-      "& .image-wrapper": {
-        textAlign: "center",
-        position: "relative",
-        "& button": {
-          position: "absolute",
-          top: "80%",
-          left: "70%",
-        },
-      },
-      "& .profile-image": {
-        width: 200,
-        height: 200,
-        objectFit: "cover",
-        maxWidth: "100%",
-        borderRadius: "50%",
-      },
-      "& .profile-details": {
-        textAlign: "center",
-        "& span, svg": {
-          verticalAlign: "middle",
-        },
-        "& a": {
-          color: theme.palette.primary.main,
-        },
-      },
-      "& hr": {
-        border: "none",
-        margin: "0 0 10px 0", 
-      },
-    },
+    ...theme.spreadThis
   });
 
   const StaticProfile = (props) => {
@@ -64,8 +29,7 @@ const styles = (theme) => ({
         <Paper className={classes.paper}>
         <div className={classes.profile}>
           <div className="image-wrapper">
-            <img src={imageURL} alt="profile" className="profile-image" />
-            
+            <img src={imageURL} alt="profile" className="profile-image" /> 
           </div>
           <hr />
           <div className="profile-details">

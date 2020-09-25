@@ -84,7 +84,7 @@ export const unlikeScreamAction = (screamId) => (dispatch) => {
 
 //Submit a Comment
 export const submitCommentAction = (screamId, commentBody) => (dispatch) => {
-    axios.post(`scream/${screamId}/comment`, commentBody)
+    axios.post(`/scream/${screamId}/comment`, commentBody)
         .then(res => {
             dispatch({
                 type: SUBMIT_COMMENT,

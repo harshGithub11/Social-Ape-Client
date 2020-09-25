@@ -10,13 +10,13 @@ import Button from '@material-ui/core/Button'
 
 //imports for material ui icons
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 
 //imports for redux
 import { useSelector } from 'react-redux';
 
 //imports for custom components
 import PostScream from '../scream/PostScream';
+import Notifications from './Notification';
 
 function Navbar(){
     
@@ -35,9 +35,7 @@ function Navbar(){
                                     <HomeIcon />
                                 </Link>
                             </MyButton>
-                            <MyButton tip = "Notifications">
-                                <Notifications />
-                            </MyButton>
+                            <Notifications />
                         </Fragment>
                     ) : 
                     (

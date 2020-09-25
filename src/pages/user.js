@@ -6,7 +6,8 @@ import Grid from '@material-ui/core/Grid';
 //Custom Components
 import Scream from '../components/scream/Scream';
 import StaticProfile from '../components/profile/StaticProfile';
-
+import ScreamSkeleton from '../util/ScreamSkeleton';
+import ProfileSkeleton from '../util/ProfileSkeleton';
 //Axios
 import axios from 'axios';
 
@@ -49,7 +50,7 @@ const User = (props) => {
     const {screams, loading} = data;
 
     const screamsMarkUp = loading ? (
-        <p style = {{marginLeft: 50}}> Loading... </p>
+        <p style = {{marginLeft: 50}}> <ScreamSkeleton /> </p>
     ) : (screams === null ? (
         <p style = {{marginLeft: 50}}> No screams for this user </p>
     ) : (!screamIdParam ? (
@@ -72,7 +73,7 @@ const User = (props) => {
                 <Grid item sm={4} xs ={12}>
                     {
                         profile === null ? (
-                            <p style = {{marginLeft: 50}}> Loading Profile... </p>
+                            <p style = {{marginLeft: 50}}> <ProfileSkeleton /> </p>
                         ) : (
                             <StaticProfile profile = {profile} />
                         )

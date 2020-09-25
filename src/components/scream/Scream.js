@@ -37,8 +37,11 @@ const useStyles = makeStyles({
     position: "relative",
   },
   media: {
-    minWidth: 160,
-    padding: 10,
+    width: 160,
+    height: 150,
+    objectFit: "cover",
+    maxWidth: "100%",
+    margin: 10
   },
   content: {
     padding: 25,

@@ -82,13 +82,16 @@ const ScreamDialog = (props) => {
     const getScream = (screamId) => dispatch(getScreamAction(screamId));
 
     const [oldPath, setOldPath] = useState('');
-
+    
     const handleOpen = () => {
 
         setOldPath(window.location.pathname);
 
         const { userHandle, screamId } = props;
         const newPath = `/users/${userHandle}/scream/${screamId}`;
+        
+        if(oldPath === newPath) setOldPath(`/users/${userHandle}`);
+
         window.history.pushState(null, null, newPath);
 
         setOpen(true);
